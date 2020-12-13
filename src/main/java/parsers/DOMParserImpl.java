@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 public class DOMParserImpl implements Parser {
@@ -37,6 +38,7 @@ public class DOMParserImpl implements Parser {
         NamedNodeMap attributes = hospitalElement.getAttributes();
         Hospital hospital = Hospital.builder()
                 .name(attributes.getNamedItem("name").getNodeValue())
+                .departments(new ArrayList<>())
                 .build();
 
         NodeList departmentNodes = hospitalElement.getElementsByTagName("department");
@@ -51,6 +53,7 @@ public class DOMParserImpl implements Parser {
         Department department = Department.builder()
                 .name(attributes.getNamedItem("name").getNodeValue())
                 .phone(attributes.getNamedItem("phone").getNodeValue())
+                .wards(new ArrayList<>())
                 .build();
 
         NodeList wardsNodes = departmentElement.getElementsByTagName("ward");
@@ -66,6 +69,7 @@ public class DOMParserImpl implements Parser {
                 .number(Integer.parseInt(attributes.getNamedItem("number").getNodeValue()))
                 .placesNumber(Integer.parseInt(attributes.getNamedItem("placesNumber").getNodeValue()))
                 .doctor(attributes.getNamedItem("doctor").getNodeValue())
+                .patients(new ArrayList<>())
                 .build();
 
         NodeList patientNodes = wardNode.getElementsByTagName("patient");
